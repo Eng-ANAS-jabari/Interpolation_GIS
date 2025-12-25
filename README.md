@@ -37,26 +37,14 @@
         [dir="ltr"] { text-align: left; }
         [dir="rtl"] { text-align: right; }
     </style>
-
-    <!-- Application Structure Plan:
-         - Localization System: A JS-based dictionary for all text elements.
-         - Interactive Explainer: Each card acts as a trigger for a detailed modal explaining the logic and math.
-         - Math Lab: Updated to reflect language changes in real-time.
-    -->
-    <!-- Visualization & Content Choices:
-         - Chart.js for all math concepts.
-         - Tailwind for responsive grid and modal layouts.
-         - No SVG or Mermaid used.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
-<body class="text-slate-800">
+<body class="text-slate-800 flex flex-col min-h-screen">
 
     <!-- Navigation & Language Switcher -->
     <nav class="bg-white shadow-sm sticky top-0 z-40">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold">G</div>
+                <div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold">J</div>
                 <h1 id="navTitle" class="text-xl font-bold text-primary">دليل الاستيفاء المكاني اعداد:انس الجعبري</h1>
             </div>
             <button onclick="toggleLanguage()" class="bg-primary text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-blue-800 transition flex items-center gap-2">
@@ -72,7 +60,7 @@
         <p id="headerSub" class="text-lg md:text-xl opacity-90 max-w-3xl mx-auto">تعرف على القوانين الرياضية وطرق عمل الخوارزميات المستخدمة في نظم المعلومات الجغرافية.</p>
     </header>
 
-    <main class="container mx-auto px-4 py-10">
+    <main class="container mx-auto px-4 py-10 flex-grow">
         
         <!-- Interactive Graph Section -->
         <section class="mb-16 bg-white rounded-3xl p-6 shadow-xl border border-slate-100">
@@ -81,9 +69,9 @@
                     <h3 id="labTitle" class="text-2xl font-bold text-primary mb-4">المختبر البصري</h3>
                     <p id="labDesc" class="text-slate-600 mb-6">اختر مفهوماً رياضياً لمشاهدة كيف تؤثر المعاملات على النتيجة النهائية.</p>
                     <div class="flex flex-col gap-2">
-                        <button onclick="updateChart('idw')" id="btn-idw" class="lab-btn active p-3 rounded-xl border-2 border-primary bg-blue-50 text-primary font-bold">IDW: Inverse Distance</button>
-                        <button onclick="updateChart('poly')" id="btn-poly" class="lab-btn p-3 rounded-xl border-2 border-slate-200 hover:border-primary transition font-bold">Polynomial: Trend</button>
-                        <button onclick="updateChart('krig')" id="btn-krig" class="lab-btn p-3 rounded-xl border-2 border-slate-200 hover:border-primary transition font-bold">Kriging: Variogram</button>
+                        <button onclick="updateChart('idw')" id="btn-idw" class="lab-btn active p-3 rounded-xl border-2 border-primary bg-blue-50 text-primary font-bold hover:shadow-md transition">IDW: Inverse Distance</button>
+                        <button onclick="updateChart('poly')" id="btn-poly" class="lab-btn p-3 rounded-xl border-2 border-slate-200 hover:border-primary transition font-bold hover:shadow-md">Polynomial: Trend</button>
+                        <button onclick="updateChart('krig')" id="btn-krig" class="lab-btn p-3 rounded-xl border-2 border-slate-200 hover:border-primary transition font-bold hover:shadow-md">Kriging: Variogram</button>
                     </div>
                 </div>
                 <div class="lg:col-span-2">
@@ -103,17 +91,44 @@
         </div>
     </main>
 
+    <!-- Footer Section -->
+    <footer class="mt-16 bg-gradient-to-r from-slate-800 to-slate-900 text-white py-10 px-4">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-right">
+                    <h3 class="text-2xl font-bold mb-2" id="footerTitle">دليل الاستيفاء المكاني التفاعلي</h3>
+                    <p class="text-slate-300 max-w-lg" id="footerDesc">مصدر تعليمي مبسط لفهم الخوارزميات الرياضية في نظم المعلومات الجغرافية</p>
+                </div>
+                
+                <div class="bg-slate-700/30 backdrop-blur-sm p-6 rounded-2xl border border-slate-600">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mb-4 shadow-lg">
+                            <span class="text-2xl font-bold text-white">A</span>
+                        </div>
+                        <div class="text-center">
+                            <h4 class="font-bold text-lg mb-1" id="footerName">إعداد المهندس</h4>
+                            <p class="text-xl font-bold text-secondary"id="Name">أنس الجعبري</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 pt-6 border-t border-slate-700 text-center">
+            </div>
+        </div>
+    </footer>
+
     <!-- Modal for Detailed Explanation -->
     <div id="modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden animate-fade-in">
-            <div class="bg-primary p-6 text-white flex justify-between items-center">
+        <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden animate-fade-in max-h-[90vh] overflow-y-auto">
+            <div class="bg-primary p-6 text-white flex justify-between items-center sticky top-0">
                 <h3 id="modalTitle" class="text-2xl font-bold">اسم الأداة</h3>
-                <button onclick="closeModal()" class="text-white hover:bg-white/20 p-2 rounded-full">&times;</button>
+                <button onclick="closeModal()" class="text-white hover:bg-white/20 p-2 rounded-full transition text-2xl">&times;</button>
             </div>
             <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
                     <h4 id="labelFormula" class="text-secondary font-bold uppercase tracking-wider mb-2">القانون الرياضي</h4>
-                    <div id="modalFormula" class="math-formula bg-slate-900 text-green-400 p-6 rounded-2xl text-xl mb-6 shadow-inner">
+                    <div id="modalFormula" class="math-formula bg-slate-900 text-green-400 p-6 rounded-2xl text-xl mb-6 shadow-inner overflow-x-auto">
                         Z = sum(w * z) / sum(w)
                     </div>
                     <h4 id="labelExplanation" class="text-secondary font-bold uppercase tracking-wider mb-2">الشرح</h4>
@@ -130,8 +145,8 @@
                     </div>
                 </div>
             </div>
-            <div class="p-6 bg-slate-50 flex justify-end">
-                <button onclick="closeModal()" id="btnDone" class="bg-primary text-white px-8 py-2 rounded-xl font-bold">تم</button>
+            <div class="p-6 bg-slate-50 flex justify-end sticky bottom-0">
+                <button onclick="closeModal()" id="btnDone" class="bg-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-800 transition">تم</button>
             </div>
         </div>
     </div>
@@ -152,6 +167,10 @@
                 labelExampleText: "مثال واقعي",
                 labelTip: "نصيحة تقنية",
                 btnDone: "إغلاق",
+                footerTitle: "دليل الاستيفاء المكاني التفاعلي",
+                footerDesc: "مصدر تعليمي مبسط لفهم الخوارزميات الرياضية في نظم المعلومات الجغرافية",
+                footerName: "إعداد المهندس",
+                Name: "انس الجعبري",
                 methods: [
                     { id: 'ebk', name: 'EBK', arName: 'الكريج البايزي التجريبي', summary: 'دقة عالية مع تقدير الأخطاء آلياً.', formula: 'Ẑ(s₀) = Σ λᵢ Z(sᵢ)', expl: 'يعتمد على بناء مئات النماذج الفرعية للسيميفاريوجرام للتعامل مع عدم اليقين في البيانات.', example: 'تقدير مستويات الأمطار في مناطق جبلية معقدة التضاريس.', tip: 'الأفضل لخرائط الأطلس الدقيقة.', icon: '📊' },
                     { id: 'idw', name: 'IDW', arName: 'وزن المسافة المعكوس', summary: 'النقاط الأقرب لها تأثير أكبر.', formula: 'wᵢ = 1 / dᵢᵖ', expl: 'يتم حساب القيمة بناءً على متوسط مرجح للمسافات، حيث يقل الوزن مع زيادة البعد.', example: 'تحديد مستويات تلوث الهواء حول المصانع.', tip: 'سريع جداً للبيانات الكثيفة.', icon: '🎯' },
@@ -176,6 +195,10 @@
                 labelExampleText: "Real-World Example",
                 labelTip: "Pro Tip",
                 btnDone: "Close",
+                footerTitle: "Interactive Spatial Interpolation Guide",
+                footerDesc: "An educational resource for understanding mathematical algorithms in GIS",
+                footerName: "Prepared by Engineer",
+                Name: "Anas Jabari",
                 methods: [
                     { id: 'ebk', name: 'EBK', arName: 'Empirical Bayesian Kriging', summary: 'High accuracy with automated error estimation.', formula: 'Ẑ(s₀) = Σ λᵢ Z(sᵢ)', expl: 'Uses hundreds of semivariogram simulations to account for spatial uncertainty.', example: 'Rainfall estimation in complex terrains.', tip: 'Best for professional atlas maps.', icon: '📊' },
                     { id: 'idw', name: 'IDW', arName: 'Inverse Distance Weighted', summary: 'Closer points have more influence.', formula: 'wᵢ = 1 / dᵢᵖ', expl: 'Calculates a weighted average where weights decrease as distance from the prediction location increases.', example: 'Air pollution mapping near factories.', tip: 'Very fast for dense datasets.', icon: '🎯' },
@@ -206,21 +229,12 @@
 
         function updateUI() {
             const data = i18n[currentLang];
-            document.getElementById('navTitle').innerText = data.navTitle;
-            document.getElementById('langLabel').innerText = data.langLabel;
-            document.getElementById('headerMain').innerText = data.headerMain;
-            document.getElementById('headerSub').innerText = data.headerSub;
-            document.getElementById('labTitle').innerText = data.labTitle;
-            document.getElementById('labDesc').innerText = data.labDesc;
-            document.getElementById('chartContext').innerText = data.chartContext;
+            // Update all text elements
+            Object.keys(data).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) element.innerText = data[key];
+            });
             
-            // Modal labels
-            document.getElementById('labelFormula').innerText = data.labelFormula;
-            document.getElementById('labelExplanation').innerText = data.labelExplanation;
-            document.getElementById('labelExampleText').innerText = data.labelExampleText;
-            document.getElementById('labelTip').innerText = data.labelTip;
-            document.getElementById('btnDone').innerText = data.btnDone;
-
             renderCards();
             if(chart) chart.destroy();
             initChart();
@@ -237,7 +251,7 @@
                     <div class="text-4xl mb-4 group-hover:scale-110 transition">${method.icon}</div>
                     <h3 class="text-xl font-bold text-primary mb-2">${currentLang === 'ar' ? method.arName : method.name}</h3>
                     <p class="text-slate-500 text-sm mb-4">${method.summary}</p>
-                    <div class="text-secondary font-bold text-xs uppercase tracking-tighter">Click for Detail / اضغط للتفاصيل</div>
+                    <div class="text-secondary font-bold text-xs uppercase tracking-tighter">${currentLang === 'ar' ? 'اضغط للتفاصيل' : 'Click for Detail'}</div>
                 `;
                 grid.appendChild(card);
             });
@@ -252,10 +266,12 @@
             document.getElementById('modalTip').innerText = method.tip;
             
             document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
 
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Restore scrolling
         }
 
         // --- 3. Chart Logic ---
@@ -268,10 +284,29 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
                     scales: {
-                        y: { beginAtZero: true, title: { display: true, text: currentLang === 'ar' ? 'التأثير' : 'Impact' } },
-                        x: { title: { display: true, text: currentLang === 'ar' ? 'المسافة' : 'Distance' } }
+                        y: { 
+                            beginAtZero: true, 
+                            title: { 
+                                display: true, 
+                                text: currentLang === 'ar' ? 'التأثير' : 'Impact',
+                                font: { size: 14, weight: 'bold' }
+                            } 
+                        },
+                        x: { 
+                            title: { 
+                                display: true, 
+                                text: currentLang === 'ar' ? 'المسافة' : 'Distance',
+                                font: { size: 14, weight: 'bold' }
+                            } 
+                        }
                     }
                 }
             });
@@ -279,11 +314,24 @@
 
         function updateChart(type) {
             // Update UI buttons
-            document.querySelectorAll('.lab-btn').forEach(b => b.classList.remove('active', 'bg-blue-50', 'border-primary', 'text-primary'));
-            document.getElementById(`btn-${type}`).classList.add('active', 'bg-blue-50', 'border-primary', 'text-primary');
+            document.querySelectorAll('.lab-btn').forEach(b => {
+                b.classList.remove('active', 'bg-blue-50', 'border-primary', 'text-primary');
+                b.classList.add('border-slate-200');
+            });
+            const activeBtn = document.getElementById(`btn-${type}`);
+            activeBtn.classList.add('active', 'bg-blue-50', 'border-primary', 'text-primary');
+            activeBtn.classList.remove('border-slate-200');
             
             chart.data = getChartData(type);
             chart.update();
+            
+            // Update chart context text
+            const contextText = {
+                idw: currentLang === 'ar' ? 'يوضح الرسم كيف يقل تأثير النقطة مع زيادة المسافة في قانون IDW.' : 'This graph shows how a point\'s influence decays as distance increases in IDW.',
+                poly: currentLang === 'ar' ? 'يوضح الرسم الاتجاه العام للسطح باستخدام معادلة رياضية.' : 'This graph shows the general trend of a surface using a polynomial equation.',
+                krig: currentLang === 'ar' ? 'يوضح الرسم مفهوم السيميفاريوجرام المستخدم في الكريجينج.' : 'This graph illustrates the semivariogram concept used in Kriging.'
+            };
+            document.getElementById('chartContext').innerText = contextText[type];
         }
 
         function getChartData(type) {
@@ -295,10 +343,10 @@
                 data = labels.map(l => l === 0 ? 100 : 1000 / (l * 0.5));
                 color = '#f97316';
             } else if (type === 'poly') {
-                data = labels.map(l => 20 + (l * 0.4));
+                data = labels.map(l => 20 + (l * 0.4) - (l * l * 0.001));
                 color = '#1e3a8a';
             } else {
-                data = labels.map(l => 10 + (Math.sin(l/10) * 15) + (l/2));
+                data = labels.map(l => 10 + (Math.sin(l/10) * 15) + (l/2) - (l * l * 0.002));
                 color = '#10b981';
             }
 
@@ -310,11 +358,20 @@
                     backgroundColor: color + '22',
                     fill: true,
                     tension: 0.4,
-                    pointRadius: 4
+                    pointRadius: 4,
+                    borderWidth: 3
                 }]
             };
         }
 
+        // Close modal when clicking outside
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target.id === 'modal') {
+                closeModal();
+            }
+        });
+
+        // Initialize on load
         window.onload = () => {
             updateUI();
         };
