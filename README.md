@@ -57,7 +57,7 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold">G</div>
-                <h1 id="navTitle" class="text-xl font-bold text-primary">دليل الاستيفاء المكاني</h1>
+                <h1 id="navTitle" class="text-xl font-bold text-primary">دليل الاستيفاء المكاني اعداد:انس الجعبري </h1>
             </div>
             <button onclick="toggleLanguage()" class="bg-primary text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-blue-800 transition flex items-center gap-2">
                 <span id="langLabel">English</span>
@@ -91,7 +91,7 @@
                         <canvas id="mainChart"></canvas>
                     </div>
                     <div id="chartContext" class="mt-4 p-4 bg-slate-50 rounded-xl text-center italic text-slate-500 text-sm">
-                        يوضح الرسم كيف يقل تأثير النقطة مع زيادة المسافة في قانون IDW.
+                       الرسم البياني يوضح تأثير النقاط.
                     </div>
                 </div>
             </div>
