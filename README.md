@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ar" dir="rtl" id="mainHtml">
 <head>
     <meta charset="UTF-8">
