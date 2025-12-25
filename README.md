@@ -107,7 +107,7 @@
                         </div>
                         <div class="text-center">
                             <h4 class="font-bold text-lg mb-1" id="footerName">إعداد المهندس</h4>
-                            <p class="text-xl font-bold text-secondary"id="Name_a">أنس الجعبري</p>
+                            <p class="font-bold text-lg mb-1" id="Name_a">أنس الجعبري</p>
                         </div>
                     </div>
                 </div>
